@@ -5,7 +5,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import * as coco from '@tensorflow-models/coco-ssd';
 import * as tf from '@tensorflow/tfjs';
 import { Subject } from 'rxjs';
-import * as faceapi from 'src/assets/face-api.min.js';
+// import * as faceapi from 'src/assets/face-api.min.js';
+import * as faceapi from 'face-api.js';
 import { environment } from 'src/environments/environment';
 import { createWorker } from 'tesseract.js';
 import { ChatService } from '../service/chat.service';
@@ -106,7 +107,6 @@ export class HomePage {
     const img = this.imgEl.nativeElement;
     canvas.height = img.clientHeight;
     canvas.width = img.clientWidth;
-
     const font = '16px sans-serif';
     context.font = font;
     context.baseline = 'top';
@@ -115,7 +115,7 @@ export class HomePage {
     canvas.style.backgroundRepeat = 'no-repeat';
     let model = await coco.load();
     let results = await model.detect(img);
-
+    
     results.forEach((prediction) => {
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
